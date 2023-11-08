@@ -1,4 +1,8 @@
 from flask import Flask, render_template, request
+
+
+application = Flask(__name__)
+
 from database import DBhandler
 import sys
 
@@ -37,6 +41,22 @@ def reg_item_submit():
     status=request.args.get("status")
     phone=request.args.get("phone")
 
+                       
+    print(name,seller,addr,email,category,card,status,phone)
+                    
+@application.route("/submit_item_post", methods=['POST'])
+def reg_item_submit_post():
+                       
+    image_file=request.files["file"]
+    image_file.save("static/images/{}".format(image_file.filename))
+    data=request.form
+    return render_template("submit_item_result.html", data=data,
+    img_path="static/images/{}".format(image_file.filename))
+
+if __name__ == "__main__":
+    application.run(host='0.0.0.0')
+
+                     
     print(name,seller,addr,email,category,card,status,phone)
     #return render_template("reg_item.html")
 
@@ -53,3 +73,4 @@ def reg_item_submit_post():
 
 if __name__ == "__main__":
     application.run(host='0.0.0.0', debug=True)
+
