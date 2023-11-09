@@ -52,6 +52,7 @@ def reg_item_submit_post():
 
     return render_template("submit_item_result.html", data=data,img_path="static/images/{}".format(image_file.filename))
 
+@application.route("/login")
 def login():
     return render_template("login.html")
 
