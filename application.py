@@ -99,11 +99,23 @@ def register_user():
     else:
         flash("user id already exist!")
         return render_template("signup.html")
-    
+
 @application.route("/logout")
 def logout_user():
     session.clear()
     return redirect(url_for('view_list'))
+
+@application.route('/dynamicurl/<varible_name>/')
+def DynamicUrl(varible_name):
+           return str(varible_name)
+
+
+@application.route("/view_detail/<name>/")
+def view_item_detail(name):
+           print("###name:",name)
+           data = DB.get_item_byname(str(name))
+           print("####data:",data)
+           return render_template("detail.html", name=name, data=data)
 
 
 if __name__ == "__main__":
